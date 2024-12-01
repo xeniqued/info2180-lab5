@@ -69,6 +69,7 @@ main{
     justify-content: center;
     text-align: center;
     gap: 20px;
+    padding-bottom: 20px;
 }
 
 #lookup-country{
