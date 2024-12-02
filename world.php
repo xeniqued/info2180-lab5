@@ -14,14 +14,22 @@ $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $p
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $country = isset($_GET['country']) ? $_GET['country'] : '';
+$lookup = isset($_GET['lookup']) ? $_GET['lookup'] : 'country';
 
-if (!empty($country)) {
-  $query = "SELECT * FROM countries WHERE name LIKE '%$country%'";
 
-}
-else{
-  $query = "SELECT * FROM countries";
-
+if ($lookup === 'cities') {
+  // fetch cities in the specified country
+  $query = !empty($country) 
+      ? "SELECT cities.name AS city, cities.district, cities.population 
+         FROM cities 
+         JOIN countries ON cities.country_code = countries.code 
+         WHERE countries.name LIKE '%$country%'"
+      : "SELECT cities.name AS city, cities.district, cities.population FROM cities";
+} else {
+  // fetch country information
+  $query = !empty($country) 
+      ? "SELECT * FROM countries WHERE name LIKE '%$country%'"
+      : "SELECT * FROM countries";
 }
 
 $stmt = $conn->query($query);
@@ -55,7 +63,9 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 </style>
 
-<table border = "1">
+<?php if ($lookup === 'country'): ?>
+<!-- Country Table Output -->
+<table border="1">
     <thead>
         <tr>
             <th>Country</th>
@@ -75,4 +85,24 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php endforeach; ?>
     </tbody>
 </table>
-
+<?php elseif ($lookup === 'cities'): ?>
+<!-- Cities Table Output -->
+<table border="1">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>District</th>
+            <th>Population</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($results as $row): ?>
+        <tr>
+            <td><?= htmlspecialchars($row['city']) ?></td>
+            <td><?= htmlspecialchars($row['district']) ?></td>
+            <td><?= htmlspecialchars($row['population']) ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?php endif; ?>

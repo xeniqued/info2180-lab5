@@ -5412,3 +5412,14 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2008-06-06 19:04:10
+
+SELECT 
+    countries.name AS country_name,
+    cities.name AS city_name,
+    cities.population AS city_population
+FROM 
+    cities
+JOIN 
+    countries ON cities.country_code = countries.code
+ORDER BY 
+    countries.name, cities.name;

@@ -1,35 +1,39 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Get the "Lookup" button and search input by ID
-    const lookupButton = document.getElementById("lookup-country");
+    const lookupCountryButton = document.getElementById("lookup-country");
+    const lookupCitiesButton = document.getElementById("lookup-cities");
     const countryInput = document.getElementById("country");
+    const resultContainer = document.getElementById("result");
 
-    // Add click event listener to the button
-    lookupButton.addEventListener("click", function () {
-        // Get the value from the input field
+    // Function to fetch and display results
+    function fetchResults(lookupType) {
         const country = countryInput.value.trim();
-
-        // Construct the fetch URL with the query parameter
-        const url = `http://localhost/info2180-lab5/world.php?country=${encodeURIComponent(country)}`;
-
-        // Fetch data from the server 
+        const url = `http://localhost/info2180-lab5/world.php?country=${encodeURIComponent(country)}&lookup=${encodeURIComponent(lookupType)}`;
+        
         fetch(url)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-                return response.text(); 
+                return response.text();
             })
             .then(data => {
-                // Display the fetched data in the div with ID "result"
-                const resultContainer = document.getElementById("result");
-                resultContainer.innerHTML = data; 
+                resultContainer.innerHTML = data; // Display fetched data
             })
             .catch(error => {
                 console.error("Error fetching data:", error);
-                // Display an error message in the result div
-                const resultContainer = document.getElementById("result");
                 resultContainer.innerHTML = `<p style="color:red;">Failed to fetch data. Please try again later.</p>`;
             });
+    }
+
+    
+    lookupCountryButton.addEventListener("click", function () {
+        fetchResults("country");
+    });
+
+    
+    lookupCitiesButton.addEventListener("click", function () {
+        fetchResults("cities");
     });
 });
 
