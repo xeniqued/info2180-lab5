@@ -1,1 +1,109 @@
 /* Add your own styles */
+
+body {
+    background-color: #e5e6e8;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Styling for header */
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #323a4b;
+    color: #fff;
+    padding: 20px;
+    gap: 20px;
+}
+
+#map{
+    width: 80px;
+    height: 80px;
+}
+
+h1{
+    align-self: center;
+    padding-top: 0px;
+}
+
+/* Styling for main content */
+
+#controls{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+main{
+    padding: 50px;
+    text-align: center;
+    gap: 20px;
+}
+
+
+/* Styling for input field */
+
+
+#country{
+    width: 40%;
+    border-radius: 8px;
+    border-color: rgba(0, 0, 0, 0.1);
+    text-align: left;
+    padding: 8px 10px;
+    margin: 20px;
+    font-size: 16px;
+    box-shadow:  2px 3px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* Styling for buttons */
+
+#buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+    padding-bottom: 20px;
+}
+
+#lookup-country{
+    display: inline-block;
+    text-align: center;
+    width: 200px;
+    background-color: #4ac6ab;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow:  2px 2px rgba(0, 0, 0, 0.1);
+}
+
+#lookup-country:hover{
+    background-color: #3da88a;
+}
+
+#lookup-cities{
+    display: inline-block;
+    text-align: center;
+    width: 200px;
+    background-color: #4195d6;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow:  2px 2px rgba(0, 0, 0, 0.1);
+}
+
+#lookup-cities:hover{
+    background-color: #2f7ab6;
+}
